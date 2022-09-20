@@ -1,8 +1,33 @@
+import { useState } from 'react';
+import TodoForm from './components/Todos/TodoForm';
+import TodoList from './components/Todos/TodoList';
 import './App.css';
 
 function App() {
+  const [todos, setTodos] = useState([]); // [ ] - начальное значение пустой массив (задач у нас нет на старте приложения)
+
+  // addTodoHandler - обработчик добавления новой задачи,
+  // text - текст для новой задачи
+  // setTodos - передаем обновленный сет задач
+  const addTodoHandler = (text) => {
+    setTodos([...todos, text])
+  }
+
+  const deleteTodoHandler = (index) => {
+    setTodos(todos.filter((_, idx) => idx !== index))
+  }
+
   return (
-    <div className="App"></div>
+    <div className="App">
+      <h1>Todo App</h1>
+      {/* В компоненте TodoForm мы будем добавлять новые задачи, 
+      переменную todos мы передаем в TodoForm чтобы менять его состояние,
+      setTodos вызываем в TodoForm*/}
+      <TodoForm addTodo={addTodoHandler}/> 
+      {/* В компоненте TodoList мы будем отображать в интерфейсе новые задачи,
+      список задач todos мы должны передавать в TodoList */}
+      <TodoList todos={todos} deleteTodo={deleteTodoHandler}/>
+    </div>
   );
 }
 
