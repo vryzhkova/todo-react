@@ -16,12 +16,20 @@ function App() {
       isComleted: false,
       id: uuidv4(),
     };
-    console.log(newTodo);
+
     setTodos([...todos, newTodo]);
   };
 
-  const deleteTodoHandler = (index) => {
-    setTodos(todos.filter((_, idx) => idx !== index));
+  const deleteTodoHandler = (id) => {
+    setTodos(todos.filter((todo) => todo.id !== id));
+  };
+
+  const toggleTodoHandler = (id) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, isComleted: !todo.isComleted } : { ...todo }
+      )
+    );
   };
 
   return (
@@ -33,7 +41,11 @@ function App() {
       <TodoForm addTodo={addTodoHandler} />
       {/* В компоненте TodoList мы будем отображать в интерфейсе новые задачи,
       список задач todos мы должны передавать в TodoList */}
-      <TodoList todos={todos} deleteTodo={deleteTodoHandler} />
+      <TodoList
+        todos={todos}
+        deleteTodo={deleteTodoHandler}
+        toggleTodo={toggleTodoHandler}
+      />
     </div>
   );
 }
