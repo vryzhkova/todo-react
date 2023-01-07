@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "./TodoForm.module.css";
+import Button from "../UI/Button";
 
 function TodoForm({ addTodo }) {
   const [text, setText] = useState(""); // setText позволяет менять состояние TodoForm
@@ -17,7 +18,9 @@ function TodoForm({ addTodo }) {
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
-        <button type="submit">Sumbit</button>
+        <Button type="submit" title="Submit">
+          Sumbit
+        </Button>
       </form>
     </div>
   );
